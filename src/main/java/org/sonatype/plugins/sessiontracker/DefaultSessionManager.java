@@ -12,6 +12,11 @@ import org.sonatype.aether.ConfigurationProperties;
 import org.sonatype.aether.util.ConfigUtils;
 import org.sonatype.aether.util.DefaultRepositorySystemSession;
 
+/**
+ * Default and dirty implementation of {@link SessionManager}.
+ * 
+ * @author cstamas
+ */
 @Component( role = SessionManager.class )
 public class DefaultSessionManager
     implements SessionManager
@@ -55,34 +60,12 @@ public class DefaultSessionManager
     // ==
 
     @SuppressWarnings( "unchecked" )
-    protected void processHeader( final MavenSession session, boolean install )
+    protected void processHeader( final MavenSession session, final boolean install )
     {
-        // put the stuff into Servers?
-        // for ( Server serverEntry : session.getSettings().getServers() )
-        // {
-        // Xpp3Dom configEntry = (Xpp3Dom) serverEntry.getConfiguration();
-        // if ( configEntry == null )
-        // {
-        // configEntry = new Xpp3Dom( "configuration" );
-        // serverEntry.setConfiguration( configEntry );
-        // }
-        // Xpp3Dom httpHeadersEntry = configEntry.getChild( "httpHeaders" );
-        // if ( httpHeadersEntry == null )
-        // {
-        // httpHeadersEntry = new Xpp3Dom( "httpHeaders" );
-        // configEntry.addChild( httpHeadersEntry );
-        // }
-        // Xpp3Dom sessionHeaderEntry = new Xpp3Dom( "httpHeader" );
-        // Xpp3Dom sessionHeaderNameEntry = new Xpp3Dom( "name" );
-        // sessionHeaderNameEntry.setValue( HEADER_SESSION_ID );
-        // Xpp3Dom sessionHeaderValueEntry = new Xpp3Dom( "value" );
-        // sessionHeaderValueEntry.setValue( getSessionId() );
-        // sessionHeaderEntry.addChild( sessionHeaderNameEntry );
-        // sessionHeaderEntry.addChild( sessionHeaderValueEntry );
-        // httpHeadersEntry.addChild( sessionHeaderEntry );
-        // }
-
         // install or uninstall extra header
+        // Note: this below is kinda-illegal: Aether session is meant to be unmodified after created
+        // but still, it works. A refactoring would be needed to move this work below out of this
+        // component, best would be to make Maven expose some API to do this cleanly.
         if ( session.getRepositorySession() instanceof DefaultRepositorySystemSession )
         {
             boolean workDone = false;
