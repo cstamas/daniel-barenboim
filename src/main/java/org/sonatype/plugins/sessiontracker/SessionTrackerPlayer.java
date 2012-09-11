@@ -6,7 +6,7 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.sonatype.plugins.daniel.Player;
 import org.sonatype.plugins.daniel.players.SessionLifecyclePlayerSupport;
 
-@Component( role = Player.class, hint = "SessionLifecyclePlayerSupport" )
+@Component( role = Player.class, hint = "org.sonatype.plugins.sessiontracker.SessionTrackerPlayer" )
 public class SessionTrackerPlayer
     extends SessionLifecyclePlayerSupport
 {

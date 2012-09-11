@@ -12,6 +12,12 @@ import org.sonatype.plugins.daniel.events.PutDownInstrumentEvent;
 
 import com.google.common.eventbus.EventBus;
 
+/**
+ * A Maven EventSpy implementation that serves as a "conductor", employing Guava's EventBus to make EventSpy processing
+ * type-safe and easier.
+ * 
+ * @author cstamas
+ */
 @Component( role = EventSpy.class, hint = "daniel-barenboim" )
 public class DanielBarenboim
     extends AbstractEventSpy
